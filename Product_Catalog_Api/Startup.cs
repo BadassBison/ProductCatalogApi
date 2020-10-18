@@ -17,6 +17,7 @@ using AutoMapper;
 using Product_Catalog_Api.Database;
 using Product_Catalog_Api.Profiles;
 using Product_Catalog_Api.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace Product_Catalog_Api
 {
@@ -29,16 +30,16 @@ namespace Product_Catalog_Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            // Database connection string.
             var connection = Configuration.GetConnectionString("DockerDatabaseConnection");
 
             services.AddDbContext<ProductCatalogApiDbContext>(
                 options => options.UseSqlServer(connection));
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IPriceLogService, PriceLogService>();
 
             services.AddAutoMapper(typeof(ProductProfile));
 
@@ -55,7 +56,6 @@ namespace Product_Catalog_Api
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

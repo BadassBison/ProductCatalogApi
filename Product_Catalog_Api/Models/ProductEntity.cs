@@ -34,11 +34,11 @@ namespace Product_Catalog_Api.Models
       {
         ProductId = dto.ProductId,
         Name = dto.Name,
-        Price = dto.Price,
-        Cost = dto.Cost,
-        Quantity = dto.Quantity,
+        Price = (int)dto.Price,
+        Cost = (int)dto.Cost,
+        Quantity = (int)dto.Quantity,
         Description = dto.Description,
-        ManufacturerId = dto.ManufacturerId,
+        ManufacturerId = (int)dto.ManufacturerId,
         CreatedDate = DateTime.Now,
         LastUpdatedDate = DateTime.Now
       };

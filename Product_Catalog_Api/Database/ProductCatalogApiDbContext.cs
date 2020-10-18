@@ -6,12 +6,8 @@ namespace Product_Catalog_Api.Database
 {
   public class ProductCatalogApiDbContext : DbContext
   {
-    public DbSet<ProductEntity> Products { get; set; }
     public ProductCatalogApiDbContext(DbContextOptions<ProductCatalogApiDbContext> options) : base(options) {}
-
-    // protected override void OnModelCreating(ModelBuilder builder)
-    // {
-    //   var entity = builder.Entity<ProductEntity>();
-    // }
+    public DbSet<ProductEntity> Products { get; set; }
+    public DbSet<PriceLog> PriceLogs { get; set; }
   }
 }
