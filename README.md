@@ -54,16 +54,17 @@ I decided that we would only need two GET endpoints for the Price Log and have t
 * GET /pricelog/:productId => fetch all price logs for a specific product
 
 As Product PUT's are sent, logs are added for the price changes.
-Currently it logs every PUT, even if it isn't the price, but I deemed that was fine since use cases for updating the description or any other detail could be looked at as additional features.
-I also choose not to use any validation on the database since the scope of this demo is API related and not database related.
+Currently it logs every PUT, even if it isn't the price.
+I deemed that was fine since use cases for updating the description or any other detail could be looked at as additional features.
+I also chose not to use any validation on the database since the scope of this demo is API related and not database related.
 
 ## Testing
 
-I build a unit test project and wrote tests for the successes of the main ProductService methods.
+I built a unit test project and wrote tests for the successes of the main ProductService methods.
 These are local in memory unit tests using SQLite.
 I decided against any additional testing since I had limited time for this project and it would be very similiar to the testing I already had in place.
 
-## Additional API work not included with my production API's
+## Additional API Information About My Production API's Not Included In The Demo
 
 ### Integrated Acceptance Testing
 
