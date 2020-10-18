@@ -36,11 +36,6 @@ namespace Product_Catalog_Api.Services
         .ToList();
     }
 
-    public async Task<bool> CheckForProductAsync(string name)
-    {
-      return await _context.Products.FirstOrDefaultAsync(p => p.Name == name) != null;
-    }
-
     public async Task<ProductEntity> AddProductAsync(ProductEntity entity)
     {
       var exists = await CheckForProductAsync(entity.Name);
@@ -54,16 +49,16 @@ namespace Product_Catalog_Api.Services
 
     public async Task<ProductEntity> UpdateProductAsync(ProductEntity entity, Product model)
     {
-      entity.Name              = model.Name == null              ? entity.Name           : model.Name;
-      entity.Quantity          = model.Quantity == null          ? entity.Quantity       : (int)model.Quantity;
-      entity.Price             = model.Price == null             ? entity.Price          : (double)model.Price;
-      entity.Cost              = model.Cost == null              ? entity.Cost           : (double)model.Cost;
-      entity.Description       = model.Description == null       ? entity.Description    : model.Description;
-      entity.ManufacturerId    = model.ManufacturerId == null    ? entity.ManufacturerId : (int)model.ManufacturerId;
-      entity.LastUpdatedDate   = DateTime.Now;
+      entity.Name = model.Name == null ? entity.Name : model.Name;
+      entity.Quantity = model.Quantity == null ? entity.Quantity : (int)model.Quantity;
+      entity.Price = model.Price == null ? entity.Price : (double)model.Price;
+      entity.Cost = model.Cost == null ? entity.Cost : (double)model.Cost;
+      entity.Description = model.Description == null ? entity.Description : model.Description;
+      entity.ManufacturerId = model.ManufacturerId == null ? entity.ManufacturerId : (int)model.ManufacturerId;
+      entity.LastUpdatedDate = DateTime.Now;
 
       await UpdatePriceLog(entity);
-      if(await _context.SaveChangesAsync() > 0) return entity;
+      if (await _context.SaveChangesAsync() > 0) return entity;
       else throw new Exception($"Failed to update {entity.Name} to the database");
     }
 
@@ -71,11 +66,16 @@ namespace Product_Catalog_Api.Services
     {
       _context.Products.Remove(product);
 
-      if(await _context.SaveChangesAsync() > 0) return product;
+      if (await _context.SaveChangesAsync() > 0) return product;
       else throw new Exception($"Failed to remove {product.Name} from the database");
     }
 
-    public async Task UpdatePriceLog(ProductEntity product)
+    private async Task<bool> CheckForProductAsync(string name)
+    {
+      return await _context.Products.FirstOrDefaultAsync(p => p.Name == name) != null;
+    }
+
+    private async Task UpdatePriceLog(ProductEntity product)
     {
       var newPriceLog = new PriceLog
       {

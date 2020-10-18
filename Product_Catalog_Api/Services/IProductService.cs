@@ -10,7 +10,6 @@ namespace Product_Catalog_Api.Services
     Task<IEnumerable<ProductEntity>> GetAllProductsAsync();
     Task<ProductEntity> GetProductByIdAsync(int id);
     List<ProductEntity> GetProductsByName(string name);
-    Task<bool> CheckForProductAsync(string name);
     Task<ProductEntity> AddProductAsync(ProductEntity entity);
     Task<ProductEntity> UpdateProductAsync(ProductEntity entity, Product model);
     Task<ProductEntity> RemoveProductAsync(ProductEntity product);
