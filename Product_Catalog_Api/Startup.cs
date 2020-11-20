@@ -100,6 +100,8 @@ namespace Product_Catalog_Api
         endpoints.MapControllers();
       });
 
+      app.UseCors();
+
       app.UseSwagger();
 
       app.UseSwaggerUI(c =>
